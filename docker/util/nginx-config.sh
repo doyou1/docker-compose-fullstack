@@ -44,7 +44,11 @@ curl -4 icanhazip.com
 # /etc/nginx/sites-enabled/default
 
 
+sudo vi /etc/nginx/sites-enabled/default
+
  # node api reverse proxy
+
 location /api/ {
     proxy_pass http://localhost:3000/;
 }
+
