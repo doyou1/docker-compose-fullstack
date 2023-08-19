@@ -29,11 +29,16 @@ curl -4 icanhazip.com
 # sudo systemctl disable nginx
 # sudo systemctl enable nginx
 
+npm install
+npm run build
+
 # cd /var/www/html
-# rm -rf *
-# mv {project}/dist/* /var/www/
+# sudo rm -rf *
+# mv {project}/dist/* /var/www/html
+sudo mv /home/ubuntu/docker-compose-fullstack/frontend/dist/* /var/www/html/
 
 # # 재실행
 # sudo nginx -s reload
 
-index.nginx-debian.html
+# server location / root 관련
+# /etc/nginx/sites-enabled/default
