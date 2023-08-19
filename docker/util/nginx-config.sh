@@ -29,16 +29,22 @@ curl -4 icanhazip.com
 # sudo systemctl disable nginx
 # sudo systemctl enable nginx
 
-npm install
-npm run build
+# npm install
+# npm run build
 
 # cd /var/www/html
 # sudo rm -rf *
 # mv {project}/dist/* /var/www/html
-sudo mv /home/ubuntu/docker-compose-fullstack/frontend/dist/* /var/www/html/
+# sudo mv /home/ubuntu/docker-compose-fullstack/frontend/dist/* /var/www/html/
 
 # # 재실행
 # sudo nginx -s reload
 
 # server location / root 관련
 # /etc/nginx/sites-enabled/default
+
+
+ # node api reverse proxy
+location /api/ {
+    proxy_pass http://localhost:3000/;
+}

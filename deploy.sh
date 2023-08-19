@@ -1,3 +1,5 @@
+#!bin/bash
+
 sudo git pull
 
 echo "deploy frontend"
@@ -21,6 +23,8 @@ sudo nginx -s reload
 
 # my ip check
 curl -4 icanhazip.com
+
+cd node ../backend/index.js
 
 # server location / root 관련
 # /etc/nginx/sites-enabled/default

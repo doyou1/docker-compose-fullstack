@@ -27,7 +27,7 @@ const todosStore = useTodosStore();
 const todo = ref("");
 const sendTodo = async () => {
   if (todo.value.length > 0) {
-    const backendUrl = "api/todo";
+    const backendUrl = `${process.env.VUE_APP_BACKEND_URL}/todo`;
     let result = await axios.post(backendUrl, {
       todo: todo.value,
     });

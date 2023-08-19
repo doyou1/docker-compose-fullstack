@@ -18,7 +18,7 @@ import axios from "axios";
 
 const todosStore = useTodosStore();
 
-const backendUrl = "api/todo";
+const backendUrl = `${process.env.VUE_APP_BACKEND_URL}/todo`;
 const getTodo = async () => {
   let result = await axios.get(backendUrl);
   todosStore.setTodos(result.data);
