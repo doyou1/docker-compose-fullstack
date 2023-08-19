@@ -20,6 +20,9 @@ sudo mv ./dist/* /var/www/html/
 # 재실행
 echo "sudo nginx -s reload"
 sudo nginx -s reload
+sudo systemctl restart nginx
+sudo service restart nginx
+
 
 # my ip check
 curl -4 icanhazip.com
