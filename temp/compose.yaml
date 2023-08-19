@@ -1,7 +1,0 @@
-services:
-  frontend:
-    build:
-      context: ./frontend
-    container_name: frontend
-    ports:
-      - "80:80"
