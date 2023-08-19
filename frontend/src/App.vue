@@ -1,16 +1,32 @@
 <template>
-  <div>Check Deploy!</div>
+  <div class="wrap m-10">
+    <div class="flex">
+      <InputView />
+    </div>
+    <div class="mt-3">
+      <ListView />
+    </div>
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { onMounted } from "vue";
+import { useTodosStore } from "@/stores/todos";
+import InputView from "@/components/InputView.vue";
+import ListView from "@/components/ListView.vue";
+import axios from "axios";
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+const todosStore = useTodosStore();
+
+const backendUrl = "api/todo";
+const getTodo = async () => {
+  let result = await axios.get(backendUrl);
+  todosStore.setTodos(result.data);
+};
+
+onMounted(() => {
+  getTodo();
+});
+</script>
+
+<style></style>
