@@ -1,0 +1,51 @@
+# # 가져올 이미지를 정의
+# FROM node:16-alpine
+
+# # 경로 설정하기
+# WORKDIR /app
+# # package.json 워킹 디렉토리에 복사 (.은 설정한 워킹 디렉토리를 뜻함)
+# COPY package*.json .
+# # 명령어 실행 (의존성 설치)
+# RUN npm install
+
+# # 현재 디렉토리의 모든 파일을 도커 컨테이너의 워킹 디렉토리에 복사한다.
+# COPY . .
+
+# # 각각의 명령어들은 한줄 한줄씩 캐싱되어 실행된다.
+# # package.json의 내용은 자주 바뀌진 않을 거지만
+# # 소스 코드는 자주 바뀌는데
+# # npm install과 COPY . . 를 동시에 수행하면
+# # 소스 코드가 조금 달라질때도 항상 npm install을 수행해서 리소스가 낭비된다.
+
+# # 3000번 포트 노출
+# EXPOSE 3000
+
+# # 개발용 스크립트 실행
+# RUN sudo npm run dev
+
+# 依存パッケージのインストール
+FROM node:16 as deps
+WORKDIR /app
+# packeg.jsonとpackage-lock.jsonのみコピーする
+COPY package*.json ./
+RUN npm install
+
+# Build環境
+FROM node:16 as builder
+WORKDIR /app
+COPY . .
+# depsステージでインストールしたパッケージをコピーする
+COPY --from=deps /app/node_modules ./node_modules
+RUN npm run build
+
+# 実行環境
+FROM node:16
+WORKDIR /app
+ENV NODE_ENV production
+# ファビコンが格納されたディレクトリをコピーする
+COPY --from=builder /app/public ./public
+# buildによって.next配下に生成されたhtml、JSON、JSファイルをコピーする
+# COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/package.json ./package.json
+EXPOSE 8080
+CMD [ "npm", "run", "build" ]
