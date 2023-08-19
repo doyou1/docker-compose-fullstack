@@ -24,7 +24,9 @@ sudo nginx -s reload
 # my ip check
 curl -4 icanhazip.com
 
-cd node ../backend/index.js
+cd ../backend
+sudo npm install
+sudo node index.js
 
 # server location / root 관련
 # /etc/nginx/sites-enabled/default

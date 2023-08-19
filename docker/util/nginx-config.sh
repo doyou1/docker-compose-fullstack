@@ -49,6 +49,6 @@ sudo vi /etc/nginx/sites-enabled/default
  # node api reverse proxy
 
 location /api/ {
-    proxy_pass http://localhost:3000/;
+    proxy_pass http://127.0.0.1:3000/;
 }
 
