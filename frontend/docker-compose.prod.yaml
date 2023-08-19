@@ -1,0 +1,15 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: deploy.Dockerfile
+    ports:
+      - 81:8081
+    expose:
+      - "81"
+    networks:
+      - elk
+
+networks:
+  elk:
+    driver: bridge
